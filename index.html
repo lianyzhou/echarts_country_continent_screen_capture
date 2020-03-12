@@ -12,6 +12,7 @@
         <div id="chart"></div>
         <script src="./assets/jquery.js"></script>
         <script src="./assets/echarts-all.js"></script>
+        <script src="./assets/echarts-gl.min.js"></script>
         <script>
             const geoJsonList = [];
             function renderChartImpl() {
@@ -20,7 +21,7 @@
                   echarts.registerMap("map" + idx, json);
                 });
                 var chartsConfig = {
-                  background: '#fff',
+                  background: '#ff00ff',
                   title: {
                     show: false,
                   },
@@ -30,10 +31,39 @@
                   series: geoJsonList.map(function(obj, idx) {
                     return {
                       name: 'map' + idx,
-                      type: 'map',
-                      mapType: 'map' + idx,
+                      type: 'map3D',
+                      map: 'map' + idx,
+                      roam: true,
+                      itemStyle: {
+                        areaColor: '#1d5e98',
+                        opacity: 1,
+                        borderWidth: 0.4,
+                        borderColor: '#000'
+                      },
                       label: {
-                        show: false
+                        show: false,
+                        textStyle: {
+                          color: '#000', //地图初始化区域字体颜色
+                          fontSize: 8,
+                          opacity: 1,
+                          backgroundColor: 'rgba(0,23,11,0)'
+                        },
+                      },
+
+                      //shading: 'lambert',
+                      light: { //光照阴影
+                        main: {
+                          color: '#fff', //光照颜色
+                          intensity: 1.2, //光照强度
+                          //shadowQuality: 'high', //阴影亮度
+                          shadow: false, //是否显示阴影
+                          alpha:55,
+                          beta:10
+
+                        },
+                        ambient: {
+                          intensity: 0.3
+                        }
                       }
                     };
                   })
@@ -54,7 +84,7 @@
               });
               setTimeout(function() {
                 renderChartImpl()
-              }, 500);
+              }, 1000);
             }
         </script>
     </body>

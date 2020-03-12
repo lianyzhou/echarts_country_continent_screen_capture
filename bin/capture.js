@@ -4,7 +4,9 @@ page.settings.userAgent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.
 var args = system.args;
 var geoJson = args[1];
 var width = args[2];
+width = isNaN(Number(width)) ? 800 : Number(width);
 var height = args[3];
+height = isNaN(Number(height)) ? 800 : Number(height);
 var output = args[4];
 page.viewportSize = {width: width, height: height};
 page.clipRect = {top: 0, left: 0, width: width, height: height};
@@ -25,7 +27,7 @@ page.open('http://127.0.0.1:8080', function(status) {
 
     setTimeout(function() {
       page.render(output);
-      phantom.exit();
-    }, 1000);
+      slimer.exit();
+    }, 2000);
   }
 });

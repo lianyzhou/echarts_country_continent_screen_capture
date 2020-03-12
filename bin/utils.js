@@ -50,7 +50,7 @@ function generatePngPaths() {
     result.push({
       mapType: key,
       geoJson: ["region/world/" + key + "High.json"],
-      fileName: continentMap[key] + "/" + continentMap[key] + ".png"
+      fileName: continentMap[key] + ".png"
     });
     json.features.forEach(function(obj) {
       if (!contry2Map[obj.id]) {

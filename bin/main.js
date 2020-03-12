@@ -9,7 +9,7 @@ function doIt() {
   if (!params) {
     return;
   }
-  var strShells = ['phantomjs'];
+  var strShells = ['slimerjs'];
   strShells.push(path.resolve(__dirname, "./capture.js"));
   strShells.push(JSON.stringify(JSON.stringify(params.geoJson)).replace(/^"/, '').replace(/"$/, ""));
   strShells.push(config.pngWidth);
