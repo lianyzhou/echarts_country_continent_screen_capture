@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="chart"></div>
+        <script src="./assets/jquery.js"></script>
+        <script src="./assets/echarts-all.js"></script>
+        <script>
+            const geoJsonList = [];
+            function renderChartImpl() {
+                const chart = document.getElementById("chart");
+                geoJsonList.map(function(json, idx) {
+                  echarts.registerMap("map" + idx, json);
+                });
+                var chartsConfig = {
+                  background: '#fff',
+                  title: {
+                    show: false,
+                  },
+                  toolbox: {
+                    show: false
+                  },
+                  series: geoJsonList.map(function(obj, idx) {
+                    return {
+                      name: 'map' + idx,
+                      type: 'map',
+                      mapType: 'map' + idx,
+                      label: {
+                        show: false
+                      }
+                    };
+                  })
+                };
+                var ecIns = echarts.init(chart);
+                ecIns.setOption(chartsConfig);
+            }
+
+            function renderChart(params) {
+              const geoJson = params.geoJson;
+              const chart = document.getElementById("chart");
+              chart.style.width = params.width + 'px';
+              chart.style.height = params.height + 'px';
+              geoJson.map(function(jsonFile, idx) {
+                $.get('json/' + jsonFile, function(json) {
+                    geoJsonList[idx] = json;
+                });
+              });
+              setTimeout(function() {
+                renderChartImpl()
+              }, 500);
+            }
+        </script>
+    </body>
+</html>
